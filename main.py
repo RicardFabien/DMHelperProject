@@ -5,10 +5,14 @@ import random
 import discord
 from dotenv import load_dotenv
 
+from MesageHandler import MessageHandler
+
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 client = discord.Client()
+
+message_handler = MessageHandler()
 
 @client.event
 async def on_ready():
@@ -19,11 +23,12 @@ async def on_message(message):
 
     if message.author == client.user:
         return
-
     print("Reçu " + message.content)
 
-    if message.content == 'test':
-        response = "test"
+
+
+    response = message_handler.handle_message(message.content)
+    if response :
         await message.channel.send(response)
 
 client.run(TOKEN)
