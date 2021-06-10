@@ -1,3 +1,6 @@
+from CharacterPortfolio import CharacterPortfolio
+
+
 class MessageHandler:
     def __init__(self):
         pass
@@ -17,10 +20,13 @@ class MessageHandler:
     ATTRIBUTE_FLAG1 = "attribute"
     ATTRIBUTE_FLAG2 = "attr"
 
+    ROLL_FLAG = "roll"
+
     ADD_FLAG = "add"
     CREATE_FLAG = "create"
     DELETE_FLAG = "delete"
 
+    chars = CharacterPortfolio()
 
 
     def handle_message(self, message):
@@ -53,14 +59,12 @@ Delete an attribute of a character : **!dm attr delete [Character name] [Attr na
                 if len(cut_message) < 4:
                     return "You need to add the name of your character after **!dm character create**"
                 else:
-                    #TODO: Add method
-                    pass
+                    return self.chars.add_character(cut_message[3])
             elif cut_message[2] == self.DELETE_FLAG:
                 if len(cut_message) < 4:
                     return "You need to add the name of the character after **!dm character create**"
                 else:
-                    # TODO: Add method
-                    pass
+                    return self.chars.remove_character(cut_message[3])
             else:
                 return self.NOT_RECOGNIZED_MESSAGE
 
@@ -85,6 +89,14 @@ Delete an attribute of a character : **!dm attr delete [Character name] [Attr na
                         return "You need to add the name of the attribute after the name of the character"
                     else:
                         # TODO: Add method
+                        pass
+            elif cut_message[1] == self.ROLL_FLAG :
+                if len(cut_message) < 3:
+                    return self.HELP_MESSAGE
+                if len(cut_message) < 4:
+                    return "You need to add the name of the stat after **!dm roll [character]**"
+                else:
+                    # TODO: Add method
                         pass
             else:
                 return self.NOT_RECOGNIZED_MESSAGE
